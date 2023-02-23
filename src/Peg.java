@@ -14,4 +14,7 @@ public class Peg {
     public String toString() {
         return isRed ? "\033[41m " + idx + " \033[0m" : "\033[44m " + idx + " \033[0m";
     }
+    public void setIdx(int i) {
+        idx = i;
+    }
 }
