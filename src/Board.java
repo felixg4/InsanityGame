@@ -1,5 +1,5 @@
 public class Board {
-    private Peg[] gameBoard;
+    private Peg[] gameBoard = new Peg[10];
     public Board() {
         gameBoard = new Peg[10];
         for (int i = 0; i < 4; i++) gameBoard[i] = new Peg(true, i);
@@ -7,10 +7,13 @@ public class Board {
         System.out.println(this);
     }
     public boolean gameOver() {
-        boolean res = true;
-        for (int i = 0; i < 4; i++) if (gameBoard[i] == null || gameBoard[i].isRed()) res = false;
-        for (int i = 6; i < 10; i++) if (gameBoard[i] == null || gameBoard[i].isBlue()) res = false;
-        return res;
+        boolean blueWon = true;
+        boolean redWon = true;
+        for (int i = 0; i < 4; i++) if (gameBoard[i] == null || gameBoard[i].isRed()) blueWon = false;
+        for (int i = 6; i < 10; i++) if (gameBoard[i] == null || gameBoard[i].isBlue()) redWon = false;
+        if (blueWon) System.out.println("blue won");
+        if (redWon) System.out.println("red won");
+        return blueWon || redWon;
     }
     public Peg getPeg(int idx) {
         return gameBoard[idx];
@@ -28,13 +31,11 @@ public class Board {
                 gameBoard[idx].setIdx(idx + 1);
                 gameBoard[idx + 1] = gameBoard[idx];
                 gameBoard[idx] = null;
-                System.out.println("move by 1 index successful");
                 return true;
             } else if (gameBoard[idx + 2] == null) {
                 gameBoard[idx + 2] = gameBoard[idx];
                 gameBoard[idx].setIdx(idx + 2);
                 gameBoard[idx] = null;
-                System.out.println("move by 2 indices successful");
                 return true;
             }
         }
@@ -50,13 +51,11 @@ public class Board {
                 gameBoard[idx].setIdx(idx - 1);
                 gameBoard[idx - 1] = gameBoard[idx];
                 gameBoard[idx] = null;
-                System.out.println("move by 1 index successful");
                 return true;
             } else if (gameBoard[idx - 2] == null) {
                 gameBoard[idx - 2] = gameBoard[idx];
                 gameBoard[idx].setIdx(idx - 2);
                 gameBoard[idx] = null;
-                System.out.println("move by 2 indices successful");
                 return true;
             }
         }
